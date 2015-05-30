@@ -1,0 +1,11 @@
+MIDlet-1: TBR3 Tanzania,,com.ihsinformatics.tbreach3tanzania.mobile.TBReach3TanzaniaMain
+MIDlet-Data-Size: 65536
+MIDlet-Description: TB REACH Mobile Application for Tanzania
+MIDlet-Info-URL: http://www.irdresearch.org
+MIDlet-Jar-Size: 137467
+MIDlet-Jar-URL: tbreach3tanzania.jar
+MIDlet-Name: TB REACH Mobile Suite
+MIDlet-Vendor: IRD
+MIDlet-Version: 1.2.0
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-2.1

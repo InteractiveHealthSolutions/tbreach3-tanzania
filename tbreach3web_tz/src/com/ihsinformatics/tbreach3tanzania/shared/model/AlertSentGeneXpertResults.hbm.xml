@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!-- Copyright(C) 2015 Interactive Health Solutions, Pvt. Ltd.
+
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 3 of the License (GPLv3), or any later version.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program; if not, write to the Interactive Health Solutions, info@ihsinformatics.com
+You can also access the license on the internet at the address: http://www.gnu.org/licenses/gpl-3.0.html
+
+Interactive Health Solutions, hereby disclaims all copyright interest in this program written by the contributors. -->
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 21, 2014 12:47:23 PM by Hibernate Tools 3.4.0.Beta1 -->
+<hibernate-mapping>
+    <class name="com.ihsinformatics.tbreach3tanzania.shared.model.AlertSentGeneXpertResults" table="AlertSentGeneXpertResults">
+        <id name="testId" type="java.lang.Integer" access="field">
+            <column name="TESTID" />
+            <generator class="identity" />
+        </id>
+        <property name="pcId" type="java.lang.String" access="field">
+            <column name="PCID" />
+        </property>
+        <property name="sputumTestId" type="java.lang.String" access="field">
+            <column name="SPUTUMTESTID" />
+        </property>
+        <property name="patientId" type="java.lang.String" access="field">
+            <column name="PATIENTID" />
+        </property>
+        <property name="laboratoryId" type="java.lang.String" access="field">
+            <column name="LABORATORYID" />
+        </property>
+        <property name="collectedBy" type="java.lang.String" access="field">
+            <column name="COLLECTEDBY" />
+        </property>
+        <property name="dateSubmitted" type="java.lang.String" access="field">
+            <column name="DATESUBMITTED" />
+        </property>
+        <property name="dateTested" type="java.lang.String" access="field">
+            <column name="DATETESTED" />
+        </property>
+        <property name="geneXpertResult" type="java.lang.String" access="field">
+            <column name="GENEXPERTRESULT" />
+        </property>
+        <property name="isPositive" type="java.lang.Boolean" access="field">
+            <column name="ISPOSITIVE" />
+        </property>
+        <property name="mtbBurden" type="java.lang.String" access="field">
+            <column name="MTBBURDEN" />
+        </property>
+        <property name="drugResistance" type="java.lang.String" access="field">
+            <column name="DRUGRESISTANCE" />
+        </property>
+        <property name="errorCode" type="java.lang.Integer" access="field">
+            <column name="ERRORCODE" />
+        </property>
+        <property name="remarks" type="java.lang.String" access="field">
+            <column name="REMARKS" />
+        </property>
+        <property name="instrumentId" type="java.lang.String" access="field">
+            <column name="INSTRUMENTID" />
+        </property>
+        <property name="moduleId" type="java.lang.String" access="field">
+            <column name="MODULEID" />
+        </property>
+        <property name="cartridgeId" type="java.lang.String" access="field">
+            <column name="CARTRIDGEID" />
+        </property>
+        <property name="reagentLotId" type="java.lang.String" access="field">
+            <column name="REAGENTLOTID" />
+        </property>
+        <property name="cartridgeExpiryDate" type="java.lang.String" access="field">
+            <column name="CARTRIDGEEXPIRYDATE" />
+        </property>
+        <property name="operatorId" type="java.lang.String" access="field">
+            <column name="OPERATORID" />
+        </property>
+        <property name="probeResultA" type="java.lang.String" access="field">
+            <column name="PROBERESULTA" />
+        </property>
+        <property name="probeResultB" type="java.lang.String" access="field">
+            <column name="PROBERESULTB" />
+        </property>
+        <property name="probeResultC" type="java.lang.String" access="field">
+            <column name="PROBERESULTC" />
+        </property>
+        <property name="probeResultD" type="java.lang.String" access="field">
+            <column name="PROBERESULTD" />
+        </property>
+        <property name="probeResultE" type="java.lang.String" access="field">
+            <column name="PROBERESULTE" />
+        </property>
+        <property name="probeResultSPC" type="java.lang.String" access="field">
+            <column name="PROBERESULTSPC" />
+        </property>
+        <property name="probeCtA" type="java.lang.Double" access="field">
+            <column name="PROBECTA" />
+        </property>
+        <property name="probeCtB" type="java.lang.Double" access="field">
+            <column name="PROBECTB" />
+        </property>
+        <property name="probeCtC" type="java.lang.Double" access="field">
+            <column name="PROBECTC" />
+        </property>
+        <property name="probeCtD" type="java.lang.Double" access="field">
+            <column name="PROBECTD" />
+        </property>
+        <property name="probeCtE" type="java.lang.Double" access="field">
+            <column name="PROBECTE" />
+        </property>
+        <property name="probeCtSPC" type="java.lang.Double" access="field">
+            <column name="PROBECTSPC" />
+        </property>
+        <property name="probeEndptA" type="java.lang.Double" access="field">
+            <column name="PROBEENDPTA" />
+        </property>
+        <property name="probeEndptB" type="java.lang.Double" access="field">
+            <column name="PROBEENDPTB" />
+        </property>
+        <property name="probeEndptC" type="java.lang.Double" access="field">
+            <column name="PROBEENDPTC" />
+        </property>
+        <property name="probeEndptD" type="java.lang.Double" access="field">
+            <column name="PROBEENDPTD" />
+        </property>
+        <property name="probeEndptE" type="java.lang.Double" access="field">
+            <column name="PROBEENDPTE" />
+        </property>
+        <property name="probeEndptSPC" type="java.lang.Double" access="field">
+            <column name="PROBEENDPTSPC" />
+        </property>
+    </class>
+</hibernate-mapping>

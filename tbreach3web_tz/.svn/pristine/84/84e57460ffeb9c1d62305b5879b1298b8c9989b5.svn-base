@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 8, 2014 10:17:33 AM by Hibernate Tools 3.4.0.Beta1 -->
+<hibernate-mapping>
+    <class name="com.ihsinformatics.tbreach3tanzania.shared.model.SmsRules" table="SmsRules">
+        <id name="idSmsRules" type="java.lang.Integer" access="field">
+            <column name="IDSMSRULES" />
+            <generator class="assigned" />
+        </id>
+        <property name="enable" type="boolean">
+            <column name="ENABLE" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" />
+        </property>
+        <property name="targetNumber" type="java.lang.String" access="field">
+            <column name="TARGETNUMBER" />
+        </property>
+    </class>
+</hibernate-mapping>

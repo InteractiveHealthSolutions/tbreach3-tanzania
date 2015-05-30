@@ -1,0 +1,90 @@
+
+package com.ihsinformatics.tbreach3tanzania.mobile.model;
+
+import com.ihsinformatics.tbreach3tanzania.mobile.shared.FormType;
+import com.ihsinformatics.tbreach3tanzania.mobile.shared.MenuItem;
+import com.ihsinformatics.tbreach3tanzania.mobile.shared.TBRT;
+
+public class Settings
+{
+	private ListItem	listItems[]	= null;
+
+	public Settings ()
+	{
+		listItems = new ListItem[MenuItem.getTotalItems ()];
+		listItems[MenuItem.MENU_REPORT_LIST] = new ListItem (MenuItem.MENU_REPORT_LIST, "Reports Menu", false);
+		listItems[MenuItem.MENU_REGISTRATION] = new ListItem (MenuItem.MENU_REGISTRATION, "Registration Form", false);
+		listItems[MenuItem.MENU_SCREENING] = new ListItem (MenuItem.MENU_SCREENING, "Initial Screening Form", false);
+		listItems[MenuItem.MENU_SMEAR_RESULTS] = new ListItem (MenuItem.MENU_SMEAR_RESULTS, "Smear Results Form", false);
+		listItems[MenuItem.MENU_DIAGNOSIS] = new ListItem (MenuItem.MENU_DIAGNOSIS, "Diagnosis Form", false);
+		listItems[MenuItem.MENU_TREATMENT] = new ListItem (MenuItem.MENU_TREATMENT, "Treatment Outcome Form", false);
+		listItems[MenuItem.MENU_TREATMENT_REVIEW] = new ListItem (MenuItem.MENU_TREATMENT_REVIEW, "Treatment Review Form", false);
+		listItems[MenuItem.MENU_SITES_DATA] = new ListItem (MenuItem.MENU_SITES_DATA, "AMPATH Sites Data", false);
+		listItems[MenuItem.MENU_LAB_REVIEW] = new ListItem (MenuItem.MENU_LAB_REVIEW, "Lab Review Form", false);
+		listItems[MenuItem.MENU_COMPARISON_REVIEW] = new ListItem (MenuItem.MENU_TREATMENT, "Comparison Review Form", false);
+		listItems[MenuItem.MENU_FEEDBACK] = new ListItem (MenuItem.MENU_FEEDBACK, "Feedback Form", false);
+		listItems[MenuItem.MENU_UNDO] = new ListItem (MenuItem.MENU_UNDO, "Undo Form", false);
+	}
+
+	private void loadSettings (String[] formTypes)
+	{
+		for (int i = 0; i < formTypes.length; i++)
+		{
+			if (formTypes[i].equals (FormType.REGISTRATION))
+				listItems[MenuItem.MENU_REGISTRATION].setShow (true);
+			if (formTypes[i].equals (FormType.SCREENING))
+				listItems[MenuItem.MENU_SCREENING].setShow (true);
+			if (formTypes[i].equals (FormType.DIAGNOSIS))
+				listItems[MenuItem.MENU_DIAGNOSIS].setShow (true);
+			if (formTypes[i].equals (FormType.TREATMENT))
+				listItems[MenuItem.MENU_TREATMENT].setShow (true);
+		}
+    	listItems[MenuItem.MENU_REPORT_LIST].setShow (true);
+	}
+
+	public void reloadItems ()
+	{
+		String currentRole = TBRT.getCurrentUserRole ();
+		String[] all = new String[] {FormType.SCREENING, FormType.REGISTRATION, FormType.DIAGNOSIS, FormType.TREATMENT};
+		if (currentRole.equals ("ADMIN"))
+			loadSettings (all);
+		/*else if (currentRole.equals ("CM"))
+			loadSettings (new String[] {FormType.SCREENING});*/
+		else
+			loadSettings (all);
+	}
+
+	public int getItemIndex (String displayName)
+	{
+		int index = -1;
+		for (int i = 0; i < listItems.length; i++)
+		{
+			if (listItems[i].getDisplayName ().equals (displayName))
+			{
+				index = i;
+				break;
+			}
+		}
+		return index;
+	}
+
+	public ListItem[] getListItems ()
+	{
+		return listItems;
+	}
+
+	public void setListItems (ListItem[] listItems)
+	{
+		this.listItems = listItems;
+	}
+
+	public ListItem getListItem (int index)
+	{
+		return this.listItems[index];
+	}
+
+	public void setListItem (int index, ListItem item)
+	{
+		this.listItems[index] = item;
+	}
+}

@@ -1,0 +1,64 @@
+package com.ihsinformatics.tbreach3tanzania.server.sms;
+
+import java.util.TimerTask;
+import java.util.Timer;
+import org.irdresearch.smstarseel.context.TarseelContext;
+import org.irdresearch.smstarseel.context.TarseelServices;
+import org.irdresearch.smstarseel.data.OutboundMessage.PeriodType;
+import org.irdresearch.smstarseel.data.OutboundMessage.Priority;
+import com.ihsinformatics.tbreach3tanzania.shared.model.GeneXpertResults;
+import com.ihsinformatics.tbreach3tanzania.shared.model.Sms;
+import com.ihsinformatics.tbreach3tanzania.server.ServerServiceImpl;
+import com.ihsinformatics.tbreach3tanzania.server.util.HibernateUtil;
+
+
+public class SmsPusher
+{
+
+	private ServerServiceImpl	ssl;
+	Timer timer;	
+	int i = 0;   // For Debugging purposes only!
+	
+
+    public SmsPusher(){
+    	try {
+    	SmsTarseel.Instantiate ();  //smstarseel properties Initialization 
+    	ssl = new ServerServiceImpl ();
+        timer = new Timer();
+        timer.schedule(new RemindTask(),0,30000);  //RemindTask() is scheduled for time interval 30 seconds      	
+    	}
+    	catch(Exception e){e.printStackTrace();}
+    }
+    class RemindTask extends TimerTask {
+        public void run() {
+        	
+            i++;
+        	System.out.format("Ilteration No. " + i + " started.%n");
+        		
+        	//Pushing Pending SMS to smstarseel
+        	Object[] objs =  HibernateUtil.util.findObjects ("from Sms where status ='"+SmsStatus.PENDING+"'");
+        	        	
+        	TarseelServices sc = null;
+        	try{
+        		for (Object object : objs) {
+        			Sms sms = (Sms) object;
+        			sms.getMessageText ();
+        			sc = TarseelContext.getServices();
+        			sc.getSmsService().createNewOutboundSms(sms.getTargetNumber (), sms.getMessageText (), sms.getDateDue (), Priority.HIGH, 24, PeriodType.HOUR, 2, null);
+        			sc.commitTransaction();
+        			sms.setStatus ("SEND");
+        			ssl.updateSms (sms);
+					}
+        	}catch(Exception e){
+        		e.printStackTrace();
+        	}
+        	finally{
+        		if (sc != null)
+        			sc.closeSession ();
+        	}
+        	
+        	System.out.format("Ilteration No. " + i + " ended.%n");
+        	      	
+        }
+    }
+}

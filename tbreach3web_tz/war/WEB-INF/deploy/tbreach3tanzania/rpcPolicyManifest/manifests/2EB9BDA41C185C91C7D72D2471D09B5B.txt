@@ -1,0 +1,2 @@
+serviceClass: com.ihsinformatics.tbreach3tanzania.client.ServerService
+path: 80B1AE0D5F0422ACD0AF1DAB7BA2CEAB.gwt.rpc

@@ -1,0 +1,58 @@
+package com.ihsinformatics.tbreach3tanzania.shared.model;
+
+public class SmsRecipient implements java.io.Serializable
+{
+
+	private static final long	serialVersionUID	= -2188806441253925606L;
+	private Integer idSmsRecipient;
+	private String description;
+	private String contactNumber;
+	
+	public SmsRecipient(){
+		
+	}
+	
+	public SmsRecipient(Integer smsRuleId, String description, String target){
+		
+		this.idSmsRecipient = smsRuleId;
+		this.description = description;
+		this.contactNumber = target;
+	
+	}
+	
+	public Integer getSmsRuleId (){
+		
+		return this.idSmsRecipient;
+	}
+	
+	public String getDescription (){
+		
+		return this.description;
+	}
+	
+	public String getTarget (){
+		
+		return this.contactNumber;
+	}
+
+	public void setSmsRuleId (Integer smsRuleId)
+	{
+		this.idSmsRecipient = smsRuleId;
+	}
+	
+	public void setDescription (String description)
+	{
+		this.description = description;
+	}
+	
+	public void setTarget (String target)
+	{
+		this.contactNumber = target;
+	}
+	
+	public String toString ()
+	{
+		return idSmsRecipient+ ", "+description+", "+contactNumber;
+	}
+	
+}

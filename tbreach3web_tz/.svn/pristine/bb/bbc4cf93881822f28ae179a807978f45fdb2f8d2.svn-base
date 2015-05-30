@@ -1,0 +1,77 @@
+/** Add css rules here for your application. */
+
+
+/** Example rules used by the template application (remove for your app) */
+
+h1 {
+	margin: 40px 0px 70px;
+	font-size: 2em;
+	font-weight: bold;
+	text-align: center;
+}
+
+.sendButton {
+  display: block;
+  font-size: 16pt;
+}
+
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox {
+  width: 400px;
+}
+
+.dialogVPanel {
+  margin: 5px;
+}
+
+.serverResponseLabelError {
+  color: red;
+}
+
+
+/** Set ids using widget.getElement().setId("idOfElement") */
+#closeButton {
+  margin: 15px 6px 6px;
+}
+.title {
+	color: Gray;
+	font-variant: small-caps;
+	font-size: large;
+}
+.gwt-StackPanel {
+}
+
+}
+.gwt-TextBox { 
+	border: 1px solid black !important;
+	border-top: 1px solid black !important; 
+}
+.patientIdTextBox
+{  	
+  border: 1px solid black !important;
+}
+
+.grid {
+	border: 1px solid Silver;
+}
+.result {
+	font-size: small;
+	font-weight: bold;
+	text-align: left;	
+}
+.popupTitleLabel {
+	color: Gray;
+	font-variant: small-caps;
+	font-size: 13pt;
+}
+.popupButton {
+	color: white;
+	font-variant: small-caps;
+	font-size: 9pt;
+	font-weight: bold;
+	margin: 0;
+	background-image: none !important; 
+    background-color: #FF6666 !important;
+    padding: 2px 4px;
+    border: 0;
+}

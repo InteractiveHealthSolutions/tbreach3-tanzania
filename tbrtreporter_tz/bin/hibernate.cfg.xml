@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright(C) 2015 Interactive Health Solutions, Pvt. Ltd.
+
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 3 of the License (GPLv3), or any later version.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program; if not, write to the Interactive Health Solutions, info@ihsinformatics.com
+You can also access the license on the internet at the address: http://www.gnu.org/licenses/gpl-3.0.html
+
+Interactive Health Solutions, hereby disclaims all copyright interest in this program written by the contributors. -->
+
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory name="">
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.username">tbr3tanzaniauser</property>
+		<property name="hibernate.connection.password">SyncMasterSA100</property>
+		<property name="hibernate.connection.url">jdbc:mysql://202.141.249.106:8954/tbr3tanzania_rpt?zeroDateTimeBehavior=convertToNull</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.connection.pool_size">0</property>
+		<property name="hibernate.connection.autocommit">true</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.use_sql_comments">false</property>
+		<property name="hibernate.format_sql">false</property>
+		<property name="hibernate.transaction.auto_close_session">true</property>
+	</session-factory>
+</hibernate-configuration>

@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportFormat" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="107"/>
+	<property name="ireport.y" value="135"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="SansSerif" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="SansSerif" fontSize="18"/>
+	<style name="Detail" mode="Transparent" forecolor="#010101" backcolor="#FFFFFF" fill="Solid" fontName="SansSerif" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false">
+		<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Border" fill="Solid" fontName="SansSerif" fontSize="9">
+		<box topPadding="2" leftPadding="2">
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Column header" mode="Transparent" forecolor="#010101" fontName="SansSerif" fontSize="9" isBold="true">
+		<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+			<pen lineWidth="1.0" lineColor="#333333"/>
+			<topPen lineWidth="1.0" lineColor="#333333"/>
+			<leftPen lineWidth="1.0" lineColor="#333333"/>
+			<bottomPen lineWidth="1.0" lineColor="#333333"/>
+			<rightPen lineWidth="1.0" lineColor="#333333"/>
+		</box>
+	</style>
+	<parameter name="UserName" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select sc.COUGH, sc.FEVER, sc.CHEST_PAIN, sc.NIGHT_SWEAT, sc.HAEMOPTYSIS, pa.treatment_outcome, pa.patient_id, pr.gender, pr.approximate_age, l.location_name, pa.date_screened, sc.COMMUNITY_APPROACH, sc.screening_strategy, pa.patient_status from tbr3tanzania_rpt.person as pr, tbr3tanzania_rpt.location as l , tbr3tanzania_rpt.patient as pa left outer join (SELECT max(e_id), pid1, COMMUNITY_APPROACH, screening_strategy,COUGH, FEVER, CHEST_PAIN, NIGHT_SWEAT, HAEMOPTYSIS FROM tbr3tanzania_rpt.Enc_SCREEN_A group by pid1) as sc on sc.pid1 = pa.pid  where (patient_status != 'REGISTERED') and pr.pid = pa.pid and pr.state = l.location_id]]>
+	</queryString>
+	<field name="COUGH" class="java.lang.String"/>
+	<field name="FEVER" class="java.lang.String"/>
+	<field name="CHEST_PAIN" class="java.lang.String"/>
+	<field name="NIGHT_SWEAT" class="java.lang.String"/>
+	<field name="HAEMOPTYSIS" class="java.lang.String"/>
+	<field name="treatment_outcome" class="java.lang.String"/>
+	<field name="patient_id" class="java.lang.String"/>
+	<field name="gender" class="java.lang.String"/>
+	<field name="approximate_age" class="java.lang.Integer"/>
+	<field name="location_name" class="java.lang.String"/>
+	<field name="date_screened" class="java.sql.Date"/>
+	<field name="COMMUNITY_APPROACH" class="java.lang.String"/>
+	<field name="screening_strategy" class="java.lang.String"/>
+	<field name="patient_status" class="java.lang.String"/>
+	<variable name="CURRENT_DATE" class="java.lang.String" calculation="System"/>
+	<variable name="SUSPECT_COUNT" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{patient_status}.equals( "SCREENED" ) ? 0 : 1]]></variableExpression>
+	</variable>
+	<variable name="NIGHTSWEAT_COUNT" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{NIGHT_SWEAT}.equals( "Y" ) ? 1 : 0]]></variableExpression>
+	</variable>
+	<variable name="HAEMOPTYSIS_COUNT" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{HAEMOPTYSIS}.equals( "Y" ) ? 1 : 0]]></variableExpression>
+	</variable>
+	<variable name="CHESTPAIN_COUNT" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{CHEST_PAIN}.equals( "Y" ) ? 1 : 0]]></variableExpression>
+	</variable>
+	<variable name="COUGH_COUNT" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{COUGH}.equals( "Y" ) ? 1 : 0]]></variableExpression>
+	</variable>
+	<variable name="FEVER_COUNT" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{FEVER}.equals( "Y" ) ? 1 : 0]]></variableExpression>
+	</variable>
+	<variable name="G_SUSPECT_COUNT" class="java.lang.Integer" resetType="Group" resetGroup="District" calculation="Sum">
+		<variableExpression><![CDATA[$F{patient_status}.equals( "SCREENED" ) ? 0 : 1]]></variableExpression>
+	</variable>
+	<variable name="G_COUGH_COUNT" class="java.lang.Integer" resetType="Group" resetGroup="District" calculation="Sum">
+		<variableExpression><![CDATA[$F{COUGH}.equals( "Y" ) ? 1 : 0]]></variableExpression>
+	</variable>
+	<variable name="G_FEVER_COUNT" class="java.lang.Integer" resetType="Group" resetGroup="District" calculation="Sum">
+		<variableExpression><![CDATA[$F{FEVER}.equals( "Y" ) ? 1 : 0]]></variableExpression>
+	</variable>
+	<variable name="G_CHESTPAIN_COUNT" class="java.lang.Integer" resetType="Group" resetGroup="District" calculation="Sum">
+		<variableExpression><![CDATA[$F{CHEST_PAIN}.equals( "Y" ) ? 1 : 0]]></variableExpression>
+	</variable>
+	<variable name="G_NIGHTSWEAT_COUNT" class="java.lang.Integer" resetType="Group" resetGroup="District" calculation="Sum">
+		<variableExpression><![CDATA[$F{NIGHT_SWEAT}.equals( "Y" ) ? 1 : 0]]></variableExpression>
+	</variable>
+	<variable name="G_HAEMOPTYSIS_COUNT" class="java.lang.Integer" resetType="Group" resetGroup="District" calculation="Sum">
+		<variableExpression><![CDATA[$F{HAEMOPTYSIS}.equals( "Y" ) ? 1 : 0]]></variableExpression>
+	</variable>
+	<group name="District" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{location_name}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<staticText>
+					<reportElement style="Column header" x="0" y="25" width="77" height="25"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+						<pen lineWidth="1.0" lineColor="#333333"/>
+						<topPen lineWidth="1.0" lineColor="#333333"/>
+						<leftPen lineWidth="1.0" lineColor="#333333"/>
+						<bottomPen lineWidth="1.0" lineColor="#333333"/>
+						<rightPen lineWidth="1.0" lineColor="#333333"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Patient ID]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="77" y="25" width="72" height="25"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+						<pen lineWidth="1.0" lineColor="#333333"/>
+						<topPen lineWidth="1.0" lineColor="#333333"/>
+						<leftPen lineWidth="1.0" lineColor="#333333"/>
+						<bottomPen lineWidth="1.0" lineColor="#333333"/>
+						<rightPen lineWidth="1.0" lineColor="#333333"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Gender]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="149" y="25" width="48" height="25"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+						<pen lineWidth="1.0" lineColor="#333333"/>
+						<topPen lineWidth="1.0" lineColor="#333333"/>
+						<leftPen lineWidth="1.0" lineColor="#333333"/>
+						<bottomPen lineWidth="1.0" lineColor="#333333"/>
+						<rightPen lineWidth="1.0" lineColor="#333333"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Age]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="197" y="25" width="88" height="25"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+						<pen lineWidth="1.0" lineColor="#333333"/>
+						<topPen lineWidth="1.0" lineColor="#333333"/>
+						<leftPen lineWidth="1.0" lineColor="#333333"/>
+						<bottomPen lineWidth="1.0" lineColor="#333333"/>
+						<rightPen lineWidth="1.0" lineColor="#333333"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DISTRICT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="285" y="25" width="90" height="25"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+						<pen lineWidth="1.0" lineColor="#333333"/>
+						<topPen lineWidth="1.0" lineColor="#333333"/>
+						<leftPen lineWidth="1.0" lineColor="#333333"/>
+						<bottomPen lineWidth="1.0" lineColor="#333333"/>
+						<rightPen lineWidth="1.0" lineColor="#333333"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Scr. Date]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="375" y="25" width="166" height="25"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+						<pen lineWidth="1.0" lineColor="#333333"/>
+						<topPen lineWidth="1.0" lineColor="#333333"/>
+						<leftPen lineWidth="1.0" lineColor="#333333"/>
+						<bottomPen lineWidth="1.0" lineColor="#333333"/>
+						<rightPen lineWidth="1.0" lineColor="#333333"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Screening Strategy]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="541" y="25" width="146" height="25"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+						<pen lineWidth="1.0" lineColor="#333333"/>
+						<topPen lineWidth="1.0" lineColor="#333333"/>
+						<leftPen lineWidth="1.0" lineColor="#333333"/>
+						<bottomPen lineWidth="1.0" lineColor="#333333"/>
+						<rightPen lineWidth="1.0" lineColor="#333333"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Screening Approach]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="687" y="25" width="115" height="25"/>
+					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+						<pen lineWidth="1.0" lineColor="#333333"/>
+						<topPen lineWidth="1.0" lineColor="#333333"/>
+						<leftPen lineWidth="1.0" lineColor="#333333"/>
+						<bottomPen lineWidth="1.0" lineColor="#333333"/>
+						<rightPen lineWidth="1.0" lineColor="#333333"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Status]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="0" y="0" width="802" height="25"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["in " + $F{location_name}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="58">
+				<textField>
+					<reportElement x="0" y="17" width="802" height="13" forecolor="#010101"/>
+					<textElement>
+						<font fontName="SansSerif" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["# of  People Screened: " +$V{District_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="30" width="802" height="13" forecolor="#010101"/>
+					<textElement>
+						<font fontName="SansSerif" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["# of  TB Suspects found: " +$V{G_SUSPECT_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="43" width="802" height="13" forecolor="#010101"/>
+					<textElement>
+						<font fontName="SansSerif" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["# of Suspects with Cough:"+$V{G_COUGH_COUNT}+", Fever:"+$V{G_FEVER_COUNT}+", Chest Pain:"+$V{G_CHESTPAIN_COUNT}+", Night Sweat:"+$V{G_NIGHTSWEAT_COUNT}+", Haemoptysis:"+$V{G_HAEMOPTYSIS_COUNT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="802" height="39"/>
+				<textElement textAlignment="Center">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Screened Patients List]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="20">
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" stretchType="RelativeToBandHeight" x="0" y="0" width="77" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0" lineColor="#333333"/>
+					<topPen lineWidth="1.0" lineColor="#333333"/>
+					<leftPen lineWidth="1.0" lineColor="#333333"/>
+					<bottomPen lineWidth="1.0" lineColor="#333333"/>
+					<rightPen lineWidth="1.0" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{patient_id}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" stretchType="RelativeToBandHeight" x="285" y="0" width="90" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0" lineColor="#333333"/>
+					<topPen lineWidth="1.0" lineColor="#333333"/>
+					<leftPen lineWidth="1.0" lineColor="#333333"/>
+					<bottomPen lineWidth="1.0" lineColor="#333333"/>
+					<rightPen lineWidth="1.0" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{date_screened}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" stretchType="RelativeToBandHeight" x="197" y="0" width="88" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0" lineColor="#333333"/>
+					<topPen lineWidth="1.0" lineColor="#333333"/>
+					<leftPen lineWidth="1.0" lineColor="#333333"/>
+					<bottomPen lineWidth="1.0" lineColor="#333333"/>
+					<rightPen lineWidth="1.0" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{location_name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement style="Detail" stretchType="RelativeToBandHeight" x="541" y="0" width="146" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0" lineColor="#333333"/>
+					<topPen lineWidth="1.0" lineColor="#333333"/>
+					<leftPen lineWidth="1.0" lineColor="#333333"/>
+					<bottomPen lineWidth="1.0" lineColor="#333333"/>
+					<rightPen lineWidth="1.0" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COMMUNITY_APPROACH}.replace( "CTR", "Community Tracing (CTR) ").replace("MIN", "Targeted Mining Community (MIN) ").replace("PAS", "Targeted Pastoral Community (PAS) ").replace(",",", ")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement style="Detail" stretchType="RelativeToBandHeight" x="687" y="0" width="115" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0" lineColor="#333333"/>
+					<topPen lineWidth="1.0" lineColor="#333333"/>
+					<leftPen lineWidth="1.0" lineColor="#333333"/>
+					<bottomPen lineWidth="1.0" lineColor="#333333"/>
+					<rightPen lineWidth="1.0" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{patient_status}.replace("SCREENED","Non-Suspect").replace("CONFIRMED","Postively Diagnosed").replace("NOT","Negatively Diagnosed").replace("SUSPECT","Suspect").replace("CLOSED","Closed ( ") + ($F{patient_status}.equals("CLOSED") ? $F{treatment_outcome}.replace("TX_FAIL","Treatment Failure").replace("TX_COMP","Treatment Complete").replace("CURED","Cured").replace("DIED","Died").replace("OTHER","Other")+" )" : "")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" stretchType="RelativeToBandHeight" x="77" y="0" width="72" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0" lineColor="#333333"/>
+					<topPen lineWidth="1.0" lineColor="#333333"/>
+					<leftPen lineWidth="1.0" lineColor="#333333"/>
+					<bottomPen lineWidth="1.0" lineColor="#333333"/>
+					<rightPen lineWidth="1.0" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{gender}.replace("M","Male").replace("F","Female")]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" stretchType="RelativeToBandHeight" x="149" y="0" width="48" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0" lineColor="#333333"/>
+					<topPen lineWidth="1.0" lineColor="#333333"/>
+					<leftPen lineWidth="1.0" lineColor="#333333"/>
+					<bottomPen lineWidth="1.0" lineColor="#333333"/>
+					<rightPen lineWidth="1.0" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{approximate_age}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" stretchType="RelativeToBandHeight" x="375" y="0" width="166" height="20"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0" lineColor="#333333"/>
+					<topPen lineWidth="1.0" lineColor="#333333"/>
+					<leftPen lineWidth="1.0" lineColor="#333333"/>
+					<bottomPen lineWidth="1.0" lineColor="#333333"/>
+					<rightPen lineWidth="1.0" lineColor="#333333"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{screening_strategy}.replace("IFS","Intensified facility based screening (IFS)").replace("CMS","Community Based TB Screening (CMS)")]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="273">
+			<textField>
+				<reportElement x="0" y="199" width="802" height="26" forecolor="#010101"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{UserName}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy h.mm a">
+				<reportElement x="0" y="249" width="802" height="24" forecolor="#010101"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="51" width="802" height="26" forecolor="#010101"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Total Number of Patient Screened:  "+$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="225" width="802" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[on]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="175" width="802" height="24"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Report Generated by:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="802" height="39"/>
+				<textElement textAlignment="Center">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Report Summary]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="77" width="802" height="26" forecolor="#010101"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="13" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Number of TB Suspects:  "+$V{SUSPECT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="123" width="802" height="22"/>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Cough: " + $V{COUGH_COUNT} + "  Fever: " + $V{FEVER_COUNT} + "  Chest Pain: " + $V{CHESTPAIN_COUNT} + "  Night Sweat: " + $V{NIGHTSWEAT_COUNT} + "  Haemoptysis: " + $V{HAEMOPTYSIS_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="103" width="802" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Number of suspects with]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
